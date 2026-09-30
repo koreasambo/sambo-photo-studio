@@ -1,0 +1,11 @@
+{
+  "category": "frame",
+  "presets": [
+    {"name":"5x7inch", "width":5, "height":7, "unit":"inch", "dpi":300},
+    {"name":"8x10inch", "width":8, "height":10, "unit":"inch", "dpi":300},
+    {"name":"10x12inch", "width":10, "height":12, "unit":"inch", "dpi":300},
+    {"name":"11x14inch", "width":11, "height":14, "unit":"inch", "dpi":300},
+    {"name":"A4_210x297mm", "width":210, "height":297, "unit":"mm", "dpi":300},
+    {"name":"A3_297x420mm", "width":297, "height":420, "unit":"mm", "dpi":300}
+  ]
+}
