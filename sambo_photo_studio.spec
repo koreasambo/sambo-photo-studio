@@ -1,14 +1,15 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_data_files
+from PyInstaller.utils.hooks import collect_submodules
 
 block_cipher = None
+hiddenimports = collect_submodules('rembg')
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
     datas=[('presets', 'presets')],
-    hiddenimports=[],
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
