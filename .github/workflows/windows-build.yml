@@ -1,0 +1,39 @@
+name: Windows Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-build.txt
+
+      - name: Run tests
+        run: pytest
+
+      - name: Build EXE
+        run: pyinstaller --noconfirm --clean sambo_photo_studio.spec
+
+      - name: Upload Windows EXE
+        uses: actions/upload-artifact@v7
+        with:
+          name: sambo-photo-studio-windows
+          path: dist/삼보사진관.exe
+          if-no-files-found: error
