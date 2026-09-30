@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sambo-photo-studio"
+version = "0.1.0"
+description = "삼보사진관 - Windows desktop photo crop, resize and print-size utility"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "PySide6>=6.10,<7",
+  "Pillow>=10,<13"
+]
+
+[project.optional-dependencies]
+build = ["PyInstaller>=6.10,<7", "pytest>=8,<10"]
+dev = ["pytest>=8,<10"]
+
+[tool.setuptools]
+packages = ["sambo_photo"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
