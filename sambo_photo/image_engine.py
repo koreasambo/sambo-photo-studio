@@ -42,6 +42,37 @@ def load_image(path: Path, rotation: int = 0) -> Image.Image:
     return img
 
 
+def apply_foreground_mask(
+    img: Image.Image,
+    mask: Image.Image | None,
+    background_mode: str = "original",
+    background_color: str = "#FFFFFF",
+) -> Image.Image:
+    """Apply a non-destructive foreground mask to a copy of img."""
+    if mask is None or background_mode == "original":
+        return img.copy()
+
+    rgba = img.convert("RGBA")
+    alpha = mask.convert("L")
+    if alpha.size != rgba.size:
+        alpha = alpha.resize(rgba.size, Image.Resampling.LANCZOS)
+    rgba.putalpha(alpha)
+
+    if background_mode == "transparent":
+        return rgba
+
+    if background_mode == "color":
+        try:
+            rgb = ImageColor.getrgb(background_color)
+        except ValueError:
+            rgb = (255, 255, 255)
+        bg = Image.new("RGBA", rgba.size, (*rgb, 255))
+        bg.alpha_composite(rgba)
+        return bg
+
+    return img.copy()
+
+
 def _custom_fill_crop(img: Image.Image, target_ratio: float, zoom: float, pan_x: float, pan_y: float) -> Image.Image:
     src_w, src_h = img.size
     src_ratio = src_w / src_h
@@ -73,7 +104,15 @@ def _custom_fill_crop(img: Image.Image, target_ratio: float, zoom: float, pan_x:
     return img.crop(box)
 
 
-def render_image(img: Image.Image, settings: OutputSettings) -> Image.Image:
+def render_image(
+    img: Image.Image,
+    settings: OutputSettings,
+    mask: Image.Image | None = None,
+    background_mode: str = "original",
+    background_color: str = "#FFFFFF",
+) -> Image.Image:
+    img = apply_foreground_mask(img, mask, background_mode, background_color)
+
     tw, th = target_size(settings)
     target_ratio = tw / th
 
