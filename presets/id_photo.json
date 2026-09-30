@@ -1,0 +1,9 @@
+{
+  "category": "id_photo",
+  "presets": [
+    {"name":"증명형_30x40mm", "width":30, "height":40, "unit":"mm", "dpi":300},
+    {"name":"여권형_35x45mm", "width":35, "height":45, "unit":"mm", "dpi":300},
+    {"name":"반명함형_30x40mm", "width":30, "height":40, "unit":"mm", "dpi":300},
+    {"name":"직접입력_35x45mm", "width":35, "height":45, "unit":"mm", "dpi":300}
+  ]
+}
