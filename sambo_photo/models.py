@@ -6,6 +6,7 @@ from typing import Literal
 
 CropMode = Literal["fill", "fit", "custom"]
 OutputFormat = Literal["JPEG", "PNG", "WEBP"]
+BackgroundMode = Literal["original", "transparent", "color"]
 
 
 @dataclass
@@ -32,6 +33,12 @@ class PhotoTask:
     source_path: Path
     settings: OutputSettings = field(default_factory=OutputSettings)
     rotation: int = 0
+
+    # V0.2 background-removal state. This is deliberately separate from source pixels.
+    mask_png: bytes | None = None
+    mask_status: str = "미실행"
+    background_mode: BackgroundMode = "original"
+    background_color: str = "#FFFFFF"
 
     @property
     def display_name(self) -> str:
