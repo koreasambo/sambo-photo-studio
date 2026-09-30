@@ -2,106 +2,74 @@
 
 **사진은 그대로, 규격은 정확하게.**
 
-Windows PC에서 여러 장의 사진을 불러와 비율, 픽셀 크기, 증명사진형, 인화형, 액자형 규격으로 재단·리사이즈하고 일괄 저장하는 데스크톱 도구입니다.
+Windows PC에서 사진 규격 변환·재단·비파괴 누끼를 처리하는 데스크톱 도구입니다.
 
-## V0.1 기능
+## V0.2 — 비파괴 누끼 / 배경
 
-- 여러 장 사진 추가 및 폴더 일괄 추가
-- Drag & Drop
-- 사진별 개별 출력 설정
-- 현재 설정을 모든 사진에 일괄 적용
-- 비율 프리셋: 1:1, 3:4, 4:3, 4:5, 5:4, 2:3, 3:2, 9:16, 16:9
-- 증명/여권형 크기 프리셋
-- 인화/액자 프리셋
-- px / mm / cm / inch
-- DPI 기반 실제 픽셀 자동 계산
+- 자동 누끼는 원본 픽셀을 수정하지 않고 별도 PNG 마스크 초안만 생성
+- 원본 / 결과 / 마스크 보기
+- 복구 브러시와 제거 브러시
+- 투명 배경 PNG / 사용자 지정 색상 배경
+- 마스크 휴리스틱 검사로 이상 결과는 ‘검토 필요’ 표시
+- 가짜 퍼센트형 AI 신뢰도는 표시하지 않음
+- 자동/수정 누끼는 ‘누끼 확정’ 전 배경 제거 결과 저장 차단
+- 회전 시 기존 마스크를 안전하게 폐기
+- 첫 자동 누끼 실행 시 소형 모델 다운로드 가능, 이후 로컬 캐시 재사용
+
+> 핵심 원칙: 잘 따는 것보다 잘못 따도 원본을 절대 훼손하지 않는 것을 우선합니다.
+
+## 기본 기능
+
+- 다중 사진/폴더 추가 및 Drag & Drop
+- 사진별 설정 / 전체 일괄 적용
+- 1:1, 3:4, 4:3, 4:5, 5:4, 2:3, 3:2, 9:16, 16:9
+- 증명/여권형, 인화, 액자 프리셋
+- px / mm / cm / inch + DPI 자동계산
 - 꽉 채우기 / 전체 유지 / 직접 재단
-- 직접 재단 시 확대 + 좌우/상하 위치 조정
-- 90° 회전
-- JPEG / PNG / WebP 저장
-- 개별 저장 / 전체 저장
-- EXIF 방향 자동 보정
-- 원본 파일 비파괴
-
-> 증명/여권형 프리셋은 **사진 크기 편집용**입니다. 국가/기관별 최신 얼굴 위치·배경·촬영일 등 제출 요건의 적합성을 보증하지 않습니다.
+- 확대 / 좌우·상하 이동 / 90° 회전
+- JPEG / PNG / WebP
+- 원본 비파괴
 
 ## 개발 실행
 
-Windows PowerShell 또는 CMD에서:
-
-```bat
+~~~bat
 run_dev.bat
-```
+~~~
 
-또는 직접:
+## Windows EXE 빌드
 
-```bash
-python -m venv .venv
-.venv\\Scripts\\activate
-pip install -r requirements.txt
-python main.py
-```
-
-## 로컬 Windows EXE 빌드
-
-```bat
+~~~bat
 build_windows.bat
-```
+~~~
 
-성공하면:
+성공하면 dist/삼보사진관.exe 가 생성됩니다.
 
-```text
-dist/삼보사진관.exe
-```
+## GitHub Actions
 
-## GitHub 연결
+main push 또는 Pull Request에서 Windows Build workflow가 테스트와 EXE 빌드를 수행합니다.
 
-이 폴더 자체가 GitHub repository root입니다.
+## 주요 구조
 
-```bash
-git init
-git add .
-git commit -m "Initial Sambo Photo Studio V0.1"
-git branch -M main
-git remote add origin https://github.com/<YOUR_ID>/sambo-photo-studio.git
-git push -u origin main
-```
-
-Push하면 `.github/workflows/windows-build.yml`이 실행되어 Windows EXE를 Actions Artifact로 생성합니다.
-
-### Release 만들기
-
-```bash
-git tag v0.1.0
-git push origin v0.1.0
-```
-
-`v*` 태그가 push되면 `release-windows.yml`이 `삼보사진관.exe`를 빌드하고 GitHub Release에 첨부합니다.
-
-## 프로젝트 구조
-
-```text
+~~~text
 sambo-photo-studio/
 ├─ main.py
 ├─ sambo_photo/
 │  ├─ models.py
 │  ├─ presets.py
 │  ├─ image_engine.py
+│  ├─ background_engine.py
+│  ├─ mask_editor.py
 │  └─ main_window.py
 ├─ presets/
 ├─ tests/
-├─ .github/workflows/
-├─ pyproject.toml
-├─ sambo_photo_studio.spec
-├─ build_windows.bat
-└─ run_dev.bat
-```
+└─ .github/workflows/
+~~~
 
-## V0.2 후보
+## 다음 후보
 
+- 인물/일반 목적물별 누끼 모델 선택
+- 머리카락·반투명 경계 refinement
+- 직접 드래그 Crop
 - 얼굴 자동 감지 + 증명사진 가이드
-- 마우스 직접 드래그 Crop
-- 사진별 작업 상태 저장/불러오기
-- EXIF/ICC profile 보존 강화
-- 동일 사진 여러 규격 동시 출력
-- 인쇄용 시트 배치
+- 프로젝트 저장/불러오기
+- 동일 원본 여러 규격 동시 출력
