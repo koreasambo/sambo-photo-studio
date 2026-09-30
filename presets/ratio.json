@@ -1,0 +1,14 @@
+{
+  "category": "ratio",
+  "presets": [
+    {"name":"1x1_1200", "width":1200, "height":1200, "unit":"px", "dpi":300},
+    {"name":"3x4_900x1200", "width":900, "height":1200, "unit":"px", "dpi":300},
+    {"name":"4x3_1200x900", "width":1200, "height":900, "unit":"px", "dpi":300},
+    {"name":"4x5_1080x1350", "width":1080, "height":1350, "unit":"px", "dpi":300},
+    {"name":"5x4_1350x1080", "width":1350, "height":1080, "unit":"px", "dpi":300},
+    {"name":"2x3_1200x1800", "width":1200, "height":1800, "unit":"px", "dpi":300},
+    {"name":"3x2_1800x1200", "width":1800, "height":1200, "unit":"px", "dpi":300},
+    {"name":"9x16_1080x1920", "width":1080, "height":1920, "unit":"px", "dpi":300},
+    {"name":"16x9_1920x1080", "width":1920, "height":1080, "unit":"px", "dpi":300}
+  ]
+}
