@@ -1,0 +1,12 @@
+{
+  "category": "print",
+  "presets": [
+    {"name":"3x5inch", "width":3, "height":5, "unit":"inch", "dpi":300},
+    {"name":"4x6inch", "width":4, "height":6, "unit":"inch", "dpi":300},
+    {"name":"5x7inch", "width":5, "height":7, "unit":"inch", "dpi":300},
+    {"name":"8x10inch", "width":8, "height":10, "unit":"inch", "dpi":300},
+    {"name":"A5_148x210mm", "width":148, "height":210, "unit":"mm", "dpi":300},
+    {"name":"A4_210x297mm", "width":210, "height":297, "unit":"mm", "dpi":300},
+    {"name":"A3_297x420mm", "width":297, "height":420, "unit":"mm", "dpi":300}
+  ]
+}
