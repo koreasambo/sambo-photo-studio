@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
         self.mask_view_combo.addItem("결과", "result")
         self.mask_view_combo.addItem("원본", "original")
         self.mask_view_combo.addItem("마스크", "mask")
-        self.mask_view_combo.currentIndexChanged.connect(self.refresh_mask_editor)
+        self.mask_view_combo.currentIndexChanged.connect(lambda: self.refresh_mask_editor())
         mask_toolbar.addWidget(self.mask_view_combo)
         mask_toolbar.addStretch()
         mask_layout.addLayout(mask_toolbar)
